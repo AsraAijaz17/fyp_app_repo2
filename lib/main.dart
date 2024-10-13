@@ -7,7 +7,7 @@ import 'package:theiotlab/LoginScreen/login.dart';
 import 'package:theiotlab/HomePage/homepage.dart';
 import 'package:theiotlab/SplashScreen/splash_screen.dart';
 import 'package:theiotlab/firebase_options.dart';
-import 'package:theiotlab/practice.dart';
+
 
 import 'package:theiotlab/signup_screen.dart/signup_screen.dart';
 
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(home: LoginScreen(username: ""));
   }
 }
