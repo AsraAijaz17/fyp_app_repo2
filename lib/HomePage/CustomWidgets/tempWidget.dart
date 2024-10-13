@@ -46,7 +46,7 @@ class _TempretureWidgetState extends State<TempretureWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "$temperature",
+                "$temperature °C ",
                 style: TextStyle(fontSize: 35, color: Colors.white),
               ),
               Text("Lab Temperature",

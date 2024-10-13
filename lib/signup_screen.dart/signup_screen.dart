@@ -48,15 +48,19 @@ class _SignupScreenState extends State<SignupScreen> {
         'email': email,
       });
 
-      print("User registered successfully, navigating to home...");
+      print("User registered successfully, ...");
 
       // Navigate to the Home page after successful registration
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => MyHomePage(
-                username: username)), // Ensure HomeScreen() is the right widget
-      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("User registered successfully"),
+        backgroundColor: Colors.blue,
+      ));
+      //clearing fields
+      emailcontroller.clear();
+      passwordcontroller.clear();
+      usernameController.clear();
+      confirmPasswordController.clear();
+     
     } on FirebaseAuthException catch (e) {
       print(
           "FirebaseAuthException: ${e.message}"); // Print specific error message

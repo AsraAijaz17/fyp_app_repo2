@@ -46,7 +46,7 @@ class _HumidityWidgetState extends State<HumidityWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "$Humidity",
+                "$Humidity %",
                 style: TextStyle(fontSize: 35, color: Colors.white),
               ),
               Text("Lab Humidity",

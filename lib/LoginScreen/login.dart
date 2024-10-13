@@ -20,18 +20,39 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   String username = '';
 
-  loginUser() async {
+  Future<void> loginUser() async {
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    // Check if email is empty
+    if (email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Email is required.")),
+      );
+      return; // Stop execution if email is empty
+    }
+
+    // Check if password is empty
+    if (password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Password is required.")),
+      );
+      return; // Stop execution if password is empty
+    }
+
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
+        email: email,
+        password: password,
+      );
 
-      //fetching uid and storing its name into a var
-
+      // Fetching uid and storing its name into a var
       final FirebaseFirestore _firestore = FirebaseFirestore.instance;
       DocumentSnapshot userDoc = await _firestore
           .collection("UsersRegister")
           .doc(credential.user!.uid)
           .get();
+
       setState(() {
         username = userDoc['username'];
       });
@@ -44,13 +65,49 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+      String errorMessage;
+
+      // Log the error code to debug
+      print('Firebase Auth Error: ${e.code}'); // Log the error code
+
+      if (e.code == 'invalid-email') {
+        errorMessage = 'invalid email.';
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        errorMessage = 'Wrong password provided for that user.';
+      } else if (e.code == 'invalid-credential') {
+        errorMessage = 'The email or password provided is invalid.';
+      } else {
+        errorMessage = 'An unknown error occurred.';
       }
+
+      // Displaying the error message in a SnackBar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
+
+  //forget pass
+
+  Future<void> SendPasswordResetEmail() async {
+    String email = emailController.text.trim();
+
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Reset Password email sent")));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Error: $e"),
+        backgroundColor: Colors.blue,
+      ));
+    }
+  }
+
+  //--------------
 
   @override
   Widget build(BuildContext context) {
@@ -135,15 +192,55 @@ class _LoginScreenState extends State<LoginScreen> {
 
             //---------------------------------------------------
 
-            const Row(
+            // const Row(
+            //   children: [
+            //     Spacer(),
+            //     Padding(
+            //       padding: EdgeInsets.only(right: 15),
+            //       child: Text(
+            //         "Forget Password?",
+            //         style: TextStyle(
+            //             color: Colors.black, fontWeight: FontWeight.w500),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+
+            Row(
               children: [
                 Spacer(),
-                Padding(
-                  padding: EdgeInsets.only(right: 15),
-                  child: Text(
-                    "Forget Password?",
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w500),
+                GestureDetector(
+                  onTap: () {
+                    // Show dialog to reset password
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text("Reset Password"),
+                        content: TextField(
+                          controller: emailController,
+                          decoration:
+                              InputDecoration(hintText: "Enter your email"),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              SendPasswordResetEmail(); // Call the function to send email
+                              Navigator.of(context)
+                                  .pop(); // Close dialog box after sending email
+                            },
+                            child: Text("Send Email"),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 15),
+                    child: Text(
+                      "Forget Password?",
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
               ],
