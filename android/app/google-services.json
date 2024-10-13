@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1037560476724",
+    "firebase_url": "https://iotlab-f212a-default-rtdb.firebaseio.com",
+    "project_id": "iotlab-f212a",
+    "storage_bucket": "iotlab-f212a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037560476724:android:f7f4ab46466bab1a918661",
+        "android_client_info": {
+          "package_name": "com.example.theiotlab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLw1dQd2QufxJZaqv1q01n2ZSlJBlGl6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
