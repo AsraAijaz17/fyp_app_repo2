@@ -12,7 +12,8 @@ import '../INCOMPLETE/SmartAccessScreen/smartAccess.dart';
 
 class MyHomePage extends StatefulWidget {
   final String username;
-  const MyHomePage({super.key, required this.username});
+  final String email; //yenayaadd
+  const MyHomePage({super.key, required this.username, required this.email});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();

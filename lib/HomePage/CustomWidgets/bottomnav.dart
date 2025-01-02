@@ -9,7 +9,7 @@
 //   final String username; // Add username parameter
 
 //   HomeScreen({required this.username});
-  
+
 //   @override
 //   _HomeScreenState createState() => _HomeScreenState();
 // }
@@ -62,9 +62,10 @@ import 'package:theiotlab/INCOMPLETE/ProfileScreen/profile.dart';
 import 'package:theiotlab/INCOMPLETE/SettinScreen/setting.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String username; // Add username parameter
+  final String username;
+  final String email; // Add username parameter
 
-  HomeScreen({required this.username});
+  HomeScreen({required this.username, required this.email});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -81,8 +82,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     // Initialize _screens with the username from the widget
     _screens = [
-      MyHomePage(username: widget.username), // Pass username here
-      ProfileScreen(),
+      MyHomePage(
+        username: widget.username,
+        email: widget.email,
+      ), // Pass username here
+      ProfileScreen(email: widget.email, username: widget.username,),
       SettingScreen(),
     ];
   }

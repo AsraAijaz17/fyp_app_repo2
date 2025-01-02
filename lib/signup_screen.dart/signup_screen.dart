@@ -7,7 +7,8 @@ import 'package:theiotlab/LoginScreen/login.dart';
 
 class SignupScreen extends StatefulWidget {
   final String username;
-  const SignupScreen({super.key, required this.username});
+  final String email;
+  const SignupScreen({super.key, required this.username, required this.email});
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -60,7 +61,6 @@ class _SignupScreenState extends State<SignupScreen> {
       passwordcontroller.clear();
       usernameController.clear();
       confirmPasswordController.clear();
-     
     } on FirebaseAuthException catch (e) {
       print(
           "FirebaseAuthException: ${e.message}"); // Print specific error message
@@ -307,6 +307,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           MaterialPageRoute(
                               builder: (context) => LoginScreen(
                                     username: widget.username,
+                                    email: widget.email,
                                   )));
                     },
                     child: Text("already have an account? Login Now"))
