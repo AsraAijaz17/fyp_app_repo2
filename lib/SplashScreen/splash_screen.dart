@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:theiotlab/LoginScreen/login.dart';
 
+import '../signup_screen.dart/signup_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   final String username; // Add username parameter
