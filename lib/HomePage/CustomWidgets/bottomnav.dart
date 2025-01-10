@@ -58,8 +58,10 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:theiotlab/HomePage/homepage.dart';
-import 'package:theiotlab/INCOMPLETE/ProfileScreen/profile.dart';
+
 import 'package:theiotlab/INCOMPLETE/SettinScreen/setting.dart';
+
+import '../../ProfileScreen/profile.dart';
 
 class HomeScreen extends StatefulWidget {
   final String username;
@@ -86,7 +88,10 @@ class _HomeScreenState extends State<HomeScreen> {
         username: widget.username,
         email: widget.email,
       ), // Pass username here
-      ProfileScreen(email: widget.email, username: widget.username,),
+      ProfileScreen(
+        email: widget.email,
+        username: widget.username,
+      ),
       SettingScreen(),
     ];
   }
